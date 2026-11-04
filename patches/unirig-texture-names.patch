@@ -1,0 +1,29 @@
+diff --git a/nodes/mia_inference.py b/nodes/mia_inference.py
+index d45181a..4036a2c 100644
+--- a/nodes/mia_inference.py
++++ b/nodes/mia_inference.py
+@@ -610,6 +610,24 @@ def _export_mia_fbx_direct(
+         fbm_dir = output_path.rsplit('.', 1)[0] + '.fbm'
+         os.makedirs(fbm_dir, exist_ok=True)
+ 
++        # Name textures by role (<asset>_albedo / <asset>_normal) instead of glTF's
++        # generic Image_N, so engines extract unique, recognisable files.
++        asset = os.path.splitext(os.path.basename(output_path))[0]
++        if asset.endswith("_mia"):
++            asset = asset[:-4]
++        for mat in bpy.data.materials:
++            if not mat.use_nodes:
++                continue
++            for node in mat.node_tree.nodes:
++                if node.type != 'TEX_IMAGE' or node.image is None:
++                    continue
++                targets = [l.to_node for o in node.outputs for l in o.links]
++                if any(t.type == 'NORMAL_MAP' for t in targets):
++                    node.image.name = f"{asset}_normal"
++                elif any(t.type == 'BSDF_PRINCIPLED' and any(l.to_socket.name == 'Base Color'
++                         for o in node.outputs for l in o.links if l.to_node == t) for t in targets):
++                    node.image.name = f"{asset}_albedo"
++
+         for img in bpy.data.images:
+             if img.size[0] > 0 and img.size[1] > 0:  # Valid image
+                 # Create a proper filepath with filename
