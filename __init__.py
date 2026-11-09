@@ -328,6 +328,7 @@ class UnityRigExport:
 
 
 from .render import TrimeshRenderToImage, MeshRenderToImage  # noqa: E402
+from .svg_relief import NODE_CLASS_MAPPINGS as _SVG_CLASSES, NODE_DISPLAY_NAME_MAPPINGS as _SVG_NAMES  # noqa: E402
 
 NODE_CLASS_MAPPINGS = {
     "MeshToTrimesh": MeshToTrimesh,
@@ -340,6 +341,7 @@ NODE_CLASS_MAPPINGS = {
     "NormalMapStrength": NormalMapStrength,
     "TrimeshRenderToImage": TrimeshRenderToImage,
     "MeshRenderToImage": MeshRenderToImage,
+    **_SVG_CLASSES,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -353,4 +355,5 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "NormalMapStrength": "노멀맵 강도 (굴곡 깊이)",
     "TrimeshRenderToImage": "TRIMESH → 이미지 렌더",
     "MeshRenderToImage": "MESH → 이미지 렌더",
+    **_SVG_NAMES,
 }

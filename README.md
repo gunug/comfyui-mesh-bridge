@@ -21,7 +21,8 @@ cd ComfyUI/custom_nodes
 git clone https://github.com/gunug/comfyui-mesh-bridge
 ```
 
-필요한 패키지는 `numpy`, `trimesh` 뿐입니다(ComfyUI-Hunyuan3d-2-1 을 설치했다면 이미 있습니다).
+필요한 패키지는 `numpy`, `trimesh`, `shapely` 입니다(ComfyUI-Hunyuan3d-2-1 을 설치했다면 numpy·trimesh 는 이미 있습니다).
+SVG 돋을새김 노드는 `manifold3d` 가 있으면 조각을 하나로 합쳐 watertight STL 을 냅니다(없으면 단순 합치기).
 없으면 ComfyUI 의 파이썬으로 `pip install -r requirements.txt`.
 
 ## 노드 (Nodes)
@@ -37,6 +38,8 @@ git clone https://github.com/gunug/comfyui-mesh-bridge
 | 유니티 에셋 이름 (다음 버전 번호) | `output/<prefix>_v001`, `_v002` ... 다음 빈 이름 |
 | 유니티 리깅 FBX 최종 출력 | 리깅된 FBX 를 `output/<prefix>_vNNN.fbx` 로 옮기고 부산물(.fbm, 미리보기 glb) 정리 |
 | TRIMESH / MESH → 이미지 렌더 | OpenGL 없이 numpy 로 턴테이블 이미지 렌더 |
+| SVG Relief to Mesh (extrude + base) | SVG(vtracer 채움 패스)의 어두운 부분을 돋을새김 + 받침판 MESH 로. mm 단위, 좌우 반전(도장), 빼기 기울기(draft) |
+| Save Mesh as STL | MESH 를 `output/<prefix>_NNNNN_.stl` 로 저장 (3D 프린트용) |
 
 ## 텍스처 이름 (선택)
 

@@ -1,9 +1,9 @@
 [project]
 name = "comfyui-mesh-bridge"
-description = "Bridge ComfyUI core MESH <-> trimesh (Hunyuan3D 2.1), normal map tools and Unity rigged FBX export nodes."
-version = "1.0.0"
+description = "Bridge ComfyUI core MESH <-> trimesh (Hunyuan3D 2.1), normal map tools and Unity rigged FBX export and SVG relief -> STL nodes."
+version = "1.1.0"
 license = { file = "LICENSE" }
-dependencies = ["numpy", "trimesh"]
+dependencies = ["numpy", "trimesh", "shapely", "manifold3d"]
 
 [project.urls]
 Repository = "https://github.com/gunug/comfyui-mesh-bridge"
